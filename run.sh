@@ -7,6 +7,12 @@ json_poem=${data}/json_poem
 corpus_dir=${data}/corpus
 utils="./utils"
 
+function clean_dir(){
+    _dir=$1
+    [ -d ${_dir} ] && rm -rf ${_dir} && mkdir ${_dir}
+}
+clean_dir ${vocab_dir}
+clean_dir ${corpus_dir}
 #cat $txt | python clean.py > $json_poem
 #make_vocab
 cat $json_poem | python ${utils}/make_vocab.py \
