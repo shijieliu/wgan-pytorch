@@ -7,10 +7,10 @@ from argparse import ArgumentParser
 import os
 import json
 import sys
-from datest import datest
+from model import datest
 from torch.utils.data import DataLoader
-from vocab import vocab
-from module import networkG,networkD
+from model import vocab
+from model import networkG,networkD
 from torch import optim
 from torch.autograd import grad
 
@@ -67,10 +67,11 @@ def train(FLAGS):
     netD = networkD(FLAGS)
     netD.cuda()
 
-    if FLAGS.netG_param:
-        netG.load_state_dict(torch.load(FLAGS.netG_param))
-    if FLAGS.netD_param:
-        netD.load_state_dict(torch.load(FLAGS.netD_param))
+    if FLAGS.type == "test":
+        if FLAGS.netG_param:
+            netG.load_state_dict(torch.load(FLAGS.netG_param))
+        if FLAGS.netD_param:
+            netD.load_state_dict(torch.load(FLAGS.netD_param))
 
     loss_G = criterion_G
     loss_D = criterion_D
